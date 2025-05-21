@@ -4,7 +4,7 @@ export interface TodoItemInterface {
 }
 
 export type TodoProps = {
-  todoItem?: TodoItemInterface;
+  item?: TodoItemInterface;
   deleteTodoItem: (id: number) => void;
   editTodoItem: (name: string, id: number) => void;
 };

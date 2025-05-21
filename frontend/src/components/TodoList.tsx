@@ -14,7 +14,7 @@ const TodoList: React.FC<TodoListProps> = ({
           {todosData.map((item) => (
             <li key={item.id}>
               <TodoItem
-                todoItem={item}
+                item={item}
                 deleteTodoItem={deleteTodoItem}
                 editTodoItem={editTodoItem}
               />
