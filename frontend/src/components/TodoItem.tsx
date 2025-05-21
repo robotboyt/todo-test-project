@@ -1,14 +1,27 @@
 import React from "react";
+import type { TodoProps } from "../types/types";
 
-interface TodoNameProps {
-  todoName: string;
-}
-
-const TodoItem: React.FC<TodoNameProps> = ({ todoName }) => {
+const TodoItem: React.FC<TodoProps> = ({
+  todoItem,
+  deleteTodoItem,
+  editTodoItem,
+}) => {
+  if (!todoItem) return null;
   return (
-    <div>
-      <h3>{todoName}</h3>
-    </div>
+    <article className="todo-item">
+      <input
+        type="checkbox"
+        onClick={() => deleteTodoItem(todoItem.id)}
+        className="checkbox"
+      />
+      <h3>{todoItem.name}</h3>
+      <button
+        className="edit"
+        onClick={() => editTodoItem(todoItem.name, todoItem.id)}
+      >
+        Edit
+      </button>
+    </article>
   );
 };
 

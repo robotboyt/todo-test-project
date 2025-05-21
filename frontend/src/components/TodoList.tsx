@@ -1,17 +1,29 @@
 import React from "react";
-import type { TodoItemInterface } from "../types/types";
+import type { TodoListProps } from "../types/types";
 import TodoItem from "./TodoItem";
 
-interface todosDataProps {
-  todosData: TodoItemInterface[];
-}
-
-const TodoList: React.FC<todosDataProps> = ({ todosData }) => {
+const TodoList: React.FC<TodoListProps> = ({
+  todosData,
+  deleteTodoItem,
+  editTodoItem,
+}) => {
   return (
-    <section>
-      {todosData.map((item) => (
-        <TodoItem todoName={item.name} />
-      ))}
+    <section className="todo-list">
+      {todosData ? (
+        <ul>
+          {todosData.map((item) => (
+            <li key={item.id}>
+              <TodoItem
+                todoItem={item}
+                deleteTodoItem={deleteTodoItem}
+                editTodoItem={editTodoItem}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h3>Loading...</h3>
+      )}
     </section>
   );
 };

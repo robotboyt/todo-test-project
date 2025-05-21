@@ -32,3 +32,27 @@ simpleDB: list[TodoItem] = [
 @app.get('/items/')
 async def get_todo():
     return simpleDB
+
+
+@app.post('/items/create/', response_model=TodoItem)
+async def create_item(item: TodoItemCreate):
+    new_id = simpleDB[-1].id + 1 if simpleDB else 1
+    new_item = TodoItem(name=item.name, id=new_id)
+    simpleDB.append(new_item)
+    return new_item
+
+
+@app.delete("/items/delete/{todo_id}")
+async def delete_item(todo_id: int):
+    for i, item in enumerate(simpleDB):
+        if item.id == todo_id:
+            del simpleDB[i]
+            return {"message": "Article deleted"}
+        
+
+@app.put("/items/update/{todo_id}")
+async def update_item(updated_item: TodoItem, todo_id: int):
+    for i, item in enumerate(simpleDB):
+        if item.id == todo_id:
+            simpleDB[i] = updated_item
+            return updated_item
