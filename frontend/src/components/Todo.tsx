@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
 import axios from "axios";
-
-interface TodoItem {
-  name: string;
-  id: number;
-}
+import type { TodoItemInterface } from "../types/types";
+import { getTodos } from "../api/api";
 
 const Todo: React.FC = () => {
-  const [data, setData] = useState<TodoItem[]>();
+  const [data, setData] = useState<TodoItemInterface[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -17,8 +14,8 @@ const Todo: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/items/`);
-      setData(res.data);
+      let apiData = await getTodos();
+      setData(apiData);
     } catch (err) {
       console.log(err);
     }
@@ -28,7 +25,7 @@ const Todo: React.FC = () => {
 
   return (
     <section className="todo-block">
-      <TodoList />
+      <TodoList todosData={data} />
       <TodoForm />
     </section>
   );

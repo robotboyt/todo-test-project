@@ -1,7 +1,19 @@
 import React from "react";
+import type { TodoItemInterface } from "../types/types";
+import TodoItem from "./TodoItem";
 
-const TodoList: React.FC = () => {
-  return <section>List</section>;
+interface todosDataProps {
+  todosData: TodoItemInterface[];
+}
+
+const TodoList: React.FC<todosDataProps> = ({ todosData }) => {
+  return (
+    <section>
+      {todosData.map((item) => (
+        <TodoItem todoName={item.name} />
+      ))}
+    </section>
+  );
 };
 
 export default TodoList;
